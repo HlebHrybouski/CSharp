@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_1_Spam.Pages
+namespace SpaghettiTests.Pages
 {
     class SpamPage
     {
@@ -18,7 +18,7 @@ namespace Task_1_Spam.Pages
             this.driver = driver;
             PageFactory.InitElements(this.driver, this);
         }
-
+        
         [FindsBy(How = How.XPath, Using = "//input[@class='gbqfif']")]
         private IWebElement searchField;
 
@@ -48,7 +48,7 @@ namespace Task_1_Spam.Pages
 
         public string GetSpamLetter()
         {
-            Task_1_Spam.Utils.WaitingElement wl = new Task_1_Spam.Utils.WaitingElement(driver);
+            SpaghettiTests.Utils.WaitingElement wl = new SpaghettiTests.Utils.WaitingElement(driver);
             wl.WaitElement(spamLetter);
             spamLetter.Click();
             return senderMail.Text;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_1_Spam.Pages
+namespace SpaghettiTests.Pages
 {
     public abstract class AbstractPage
     {

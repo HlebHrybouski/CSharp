@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_1_Spam.Steps
+namespace SpaghettiTests.Steps
 {
     public class Steps
     {
         IWebDriver driver;
-        //private static readonly ILog logger = LogManager.GetLogger(typeof(Steps));
 
         public void InitBrowser()
         {
@@ -55,6 +54,12 @@ namespace Task_1_Spam.Steps
             sendMessage.CreateMail(to, theme, message);
         }
 
+        public void SendMessage(string to, string theme, string message, string pathToAttach)
+        {
+            Pages.SendMessage sendMessage = new Pages.SendMessage(driver);
+            sendMessage.CreateMail(to, theme, message, pathToAttach);
+        }
+
         public void MarkLetterAsSpam()
         {
             Pages.MainGmailPage addToSpam = new Pages.MainGmailPage(driver);
@@ -67,33 +72,70 @@ namespace Task_1_Spam.Steps
             sp.GoToSpam();
         }
 
-       
+        public void GoToSettings()
+        {
+            Pages.Settings sett = new Pages.Settings(driver);
+            sett.GoToSettings();
+        }
 
-        /*
-        public bool IsLoggedIn(string username)
+        public void GoToPOPIMAP()
         {
-            Pages.LoginPage loginPage = new Pages.LoginPage(driver);
-            return (loginPage.GetLoggedInUserName().Trim().ToLower().Equals(username));
+            Pages.SettingsPOPIMAP popimap = new Pages.SettingsPOPIMAP(driver);
+            popimap.GoToPopImap();
         }
-        */
-        /*
-        public bool CreateNewRepository(string repositoryName, string repositoryDescription)
-        {
-            logger.Info("Creating new repo with name: " + repositoryName);
-            Pages.MainPage mainPage = new Pages.MainPage(driver);
-            mainPage.ClickOnCreateNewRepositoryButton();
-            Pages.CreateNewRepositoryPage createNewRepositoryPage = new Pages.CreateNewRepositoryPage(driver);
-            string expectedRepoName = createNewRepositoryPage.CreateNewRepository(repositoryName, repositoryDescription);
 
-            return expectedRepoName.Equals(createNewRepositoryPage.GetCurrentRepositoryName());
-        }
-         * */
-        /*
-        public bool CurrentRepositoryIsEmpty()
+        public void SetForward(string smth)
         {
-            Pages.CreateNewRepositoryPage createNewRepositoryPage = new Pages.CreateNewRepositoryPage(driver);
-            return createNewRepositoryPage.IsCurrentRepositoryEmpty();
+            Pages.SettingsPOPIMAP sett = new Pages.SettingsPOPIMAP(driver);
+            sett.SetForaward(smth);
         }
-         * */
+
+        public void ConfirmForward()
+        {
+            Pages.MainGmailPage confir = new Pages.MainGmailPage(driver);
+            confir.ConfirmForward();
+        }
+
+        public void ChooseRadioButtonForwardTo()
+        {
+            Pages.SettingsPOPIMAP choose = new Pages.SettingsPOPIMAP(driver);
+            choose.ChooseRadioButtonForwardTo();
+        }
+
+        public void CreateForwardFilter(string from)
+        {
+            Pages.Filter filter = new Pages.Filter(driver);
+            filter.CreateForwardFilter(from);
+        }
+
+        public void OpenLastUnreadLetter()
+        {
+            Pages.MainGmailPage opLett = new Pages.MainGmailPage(driver);
+            opLett.OpenLastUnreadLetter();
+        }
+
+        public string GetLetterText()
+        {
+            Pages.MainGmailPage txt = new Pages.MainGmailPage(driver);
+            return txt.GetLetterText();
+        }
+
+        public void GoToImportant()
+        {
+            Pages.MainGmailPage gti = new Pages.MainGmailPage(driver);
+            gti.GoToImportant();
+        }
+
+        public void GoToTrash()
+        {
+            Pages.MainGmailPage gtt = new Pages.MainGmailPage(driver);
+            gtt.GoToTrash();
+        }
+
+        public string GetAttachName()
+        {
+            Pages.MainGmailPage att = new Pages.MainGmailPage(driver);
+            return att.GetAttachName();
+        }
     }
 }

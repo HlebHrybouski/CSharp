@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_1_Spam.Utils
+namespace SpaghettiTests.Utils
 {
     class WaitingElement
     {

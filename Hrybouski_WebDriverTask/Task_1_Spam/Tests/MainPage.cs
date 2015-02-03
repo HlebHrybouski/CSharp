@@ -7,47 +7,30 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
-using Task_1_Spam.Steps;
+using SpaghettiTests.Steps;
 
-namespace Task_1_Spam.Tests
+namespace SpaghettiTests.Tests
 {
-    /*
-    class MainPage : BaseTest
-    {
-        [Test]
-        public void oneCanOpenGoogle()
-        {
-            
-            driver.Navigate().GoToUrl("https://mail.google.com/");
-            IWebElement queryBox = driver.FindElement(By.Id("Email"));
-            queryBox.SendKeys("hleb.webdriver.1");
-            queryBox = driver.FindElement(By.Id("Passwd"));
-            queryBox.SendKeys("4815162342!");
-            driver.FindElement(By.Id("signIn")).Click();
-            
-            WebDriverWait wdw = new WebDriverWait(driver, TimeSpan.FromSeconds(7));
-            wdw.Until(ExpectedConditions.ElementExists(By.LinkText("НАПИСАТЬ")));
-            //driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
-
-            driver.FindElement(By.XPath("id(':4r')/x:div/x:div")).Click();
-            queryBox = driver.FindElement(By.Id(":9n"));
-            queryBox.SendKeys("hleb.webdriver.2@gmail.com");
-             
-        }
-
-        
-    }
-    */
-
-   
-    class MainPage2
+      
+    class Spaghetti
     {
         private Steps.Steps steps = new Steps.Steps();
 
-        [Test]
-        public void Login()
+        [SetUp]
+        public void Init()
         {
             steps.InitBrowser();
+        }
+
+        [TearDown]
+        public void Cleanup()
+        {
+            steps.CloseBrowser();
+        }
+
+        [Test]
+        public void Spam()
+        {
             steps.LoginGmail("hleb.webdriver.1", "4815162342!");
             steps.SendMessage("hleb.webdriver.2@gmail.com", "lal", "asdkjasdkk");
             steps.LogOut();
@@ -62,16 +45,58 @@ namespace Task_1_Spam.Tests
             steps.CleanCookie();
             steps.LoginGmail("hleb.webdriver.2", "4815162342!");
             steps.GoToSpamBox();
+            steps.LogOut();
+            steps.CleanCookie();
+        }
 
+        [Test]
+        public void Forward()
+        {
+            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.GoToSettings();
+            steps.GoToPOPIMAP();
+            steps.SetForward("hleb.webdriver.3@gmail.com");
+            steps.LogOut();
+            steps.CleanCookie();
+            steps.LoginGmail("hleb.webdriver.3", "4815162342!");
+            steps.ConfirmForward();
+            steps.LogOut();
+            steps.CleanCookie();
+            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.GoToSettings();
+            steps.GoToPOPIMAP();
+            steps.ChooseRadioButtonForwardTo();
+            steps.CreateForwardFilter("hleb.webdriver.1@gmail.com");
+            steps.LogOut();
+            steps.CleanCookie();
+            steps.LoginGmail("hleb.webdriver.1", "4815162342!");
+            steps.SendMessage("hleb.webdriver.2@gmail.com", "lasqwdfgl", "asdksdfgjasdkk", @"C:\RHDSetup.log");
+            steps.SendMessage("hleb.webdriver.2@gmail.com", "lajkgl", "asdkjgsdfgasdkk");
+            steps.LogOut();
+            steps.CleanCookie();
+            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.GoToImportant();
+            steps.OpenLastUnreadLetter();
+            StringAssert.Contains("asdkjgsdfgasdkk", steps.GetLetterText());
+            steps.GoToTrash();
+            steps.OpenLastUnreadLetter();
+            StringAssert.Contains("RHDSetup.log", steps.GetAttachName());
+            StringAssert.Contains("asdksdfgjasdkk", steps.GetLetterText());
+            steps.LogOut();
+            steps.CleanCookie();
+            steps.LoginGmail("hleb.webdriver.3", "4815162342!");
+            steps.OpenLastUnreadLetter();
         }
 
         /*
-        [TearDown]
-        public void Message()
+        [Test]
+        public void ATempTest()
         {
-            
-            steps.SendMessage("hleb.webdriver.1", "lal", "asdkj asdk k");
+            steps.LoginGmail("hleb.webdriver.3", "4815162342!");
+            steps.OpenLastUnreadLetter();
+             
         }
-         * */
+         */
+
     }
 }

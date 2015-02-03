@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_1_Spam.Pages
+namespace SpaghettiTests.Pages
 {
     public class MainGmailPage
     {
-        [FindsBy(How = How.XPath, Using = "//a[@class='gb_C gb_da gb_h gb_9']")]
+        [FindsBy(How = How.XPath, Using = "//a[@class='gb_D gb_ea gb_i gb_aa']")]
         private IWebElement linkLogOutUser;
 
         [FindsBy(How = How.Id, Using = "gb_71")]
@@ -31,6 +31,19 @@ namespace Task_1_Spam.Pages
         [FindsBy(How = How.XPath, Using = "//a[contains(@href,'https://isolated.mail.google.')]")]
         private IWebElement confirmLink;
 
+        [FindsBy(How = How.XPath, Using = "//div[@class='a3s']//div[@dir='ltr']")]
+        private IWebElement textOfLetter;
+
+        [FindsBy(How = How.XPath, Using = "//input[@class='gbqfif']")]
+        private IWebElement searchField;
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='gbqfb']")]
+        private IWebElement searchButton;
+
+        [FindsBy(How = How.XPath, Using = "//span[@class='aV3 a6U']")]
+        private IWebElement attachName;
+        
+
         private IWebDriver driver;
 
         public MainGmailPage(IWebDriver driver)
@@ -43,7 +56,6 @@ namespace Task_1_Spam.Pages
         {
             linkLogOutUser.Click();
             buttonLogOut.Click();
-            //driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(30));
         }
 
         public void AddToSpam()
@@ -55,14 +67,47 @@ namespace Task_1_Spam.Pages
             reportSpamButton.Click();
         }
 
-        /*
-
-        public void ConfirmGoogleMail()
+        public void ConfirmForward()
         {
-            letterFromGoogle.Click();
+            Utils.WaitingElement wl = new Utils.WaitingElement(driver);
+            wl.WaitElement(newLetter);
+            newLetter.Click();
             confirmLink.Click();
         }
-         * */
+
+        public void OpenLastUnreadLetter()
+        {
+            Utils.WaitingElement wl = new Utils.WaitingElement(driver);
+            wl.WaitElement(newLetter);
+            newLetter.Click();
+        }
+        
+        public string GetLetterText()
+        {
+            Utils.WaitingElement wl = new Utils.WaitingElement(driver);
+            wl.WaitElement(textOfLetter);
+            return textOfLetter.Text;
+        }
+
+        public void GoToImportant()
+        {
+            searchField.SendKeys("in:important");
+            searchButton.Click();
+        }
+
+        public void GoToTrash()
+        {
+            searchField.SendKeys("in:trash");
+            searchButton.Click();
+        }
+
+        public string GetAttachName()
+        {
+            Utils.WaitingElement wl = new Utils.WaitingElement(driver);
+            wl.WaitElement(attachName);
+            return attachName.Text;
+        }
+        
 
     }
 }
