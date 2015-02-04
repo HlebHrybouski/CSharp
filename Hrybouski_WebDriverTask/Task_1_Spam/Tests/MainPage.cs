@@ -17,6 +17,11 @@ namespace SpaghettiTests.Tests
     {
         private Steps.Steps steps = new Steps.Steps();
 
+        private const string USER1 = "hleb.webdriver.1@gmail.com";
+        private const string USER2 = "hleb.webdriver.2@gmail.com";
+        private const string USER3 = "hleb.webdriver.3@gmail.com";
+        private const string PASS = "4815162342!";
+
         [SetUp]
         public void Init()
         {
@@ -32,19 +37,19 @@ namespace SpaghettiTests.Tests
         [Test]
         public void Spam()
         {
-            steps.LoginGmail("hleb.webdriver.1", "4815162342!");
-            steps.SendMessage("hleb.webdriver.2@gmail.com", "lal", "asdkjasdkk");
+            steps.LoginGmail(USER1, PASS);
+            steps.SendMessage(USER2, "lal", "asdkjasdkk");
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.LoginGmail(USER2, PASS);
             steps.MarkLetterAsSpam();
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.1", "4815162342!");
-            steps.SendMessage("hleb.webdriver.2@gmail.com", "lsdfdsal", "asdkjsdfsdafsdfasdkk");
+            steps.LoginGmail(USER2, PASS);
+            steps.SendMessage(USER2, "lsdfdsal", "asdkjsdfsdafsdfasdkk");
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.LoginGmail(USER2, PASS);
             steps.GoToSpamBox();
             steps.LogOut();
             steps.CleanCookie();
@@ -53,42 +58,38 @@ namespace SpaghettiTests.Tests
         [Test]
         public void Forward()
         {
-            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.LoginGmail(USER2, PASS);
             steps.GoToSettings();
             steps.GoToPOPIMAP();
-            steps.SetForward("hleb.webdriver.3@gmail.com");
+            steps.SetForward(USER3);
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.3", "4815162342!");
+            steps.LoginGmail(USER3, PASS);
             steps.ConfirmForward();
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.LoginGmail(USER2, PASS);
             steps.GoToSettings();
             steps.GoToPOPIMAP();
             steps.ChooseRadioButtonForwardTo();
-            steps.CreateForwardFilter("hleb.webdriver.1@gmail.com");
+            steps.CreateForwardFilter(USER2);
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.1", "4815162342!");
-            steps.SendMessage("hleb.webdriver.2@gmail.com", "lasqwdfgl", "asdksdfgjasdkk", @"C:\RHDSetup.log");
-            steps.SendMessage("hleb.webdriver.2@gmail.com", "lajkgl", "asdkjgsdfgasdkk");
+            steps.LoginGmail(USER1, PASS);
+            steps.SendMessage(USER2, "lasqwdfgl", "asdksdfgjasdkk", @"C:\RHDSetup.log");
+            steps.SendMessage(USER2, "lajkgl", "asdkjgsdfgasdkk");
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.2", "4815162342!");
+            steps.LoginGmail(USER2, PASS);
             steps.GoToImportant();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
             steps.OpenLastUnreadLetter();
             StringAssert.Contains("asdkjgsdfgasdkk", steps.GetLetterText());
             steps.GoToTrash();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
             steps.OpenLastUnreadLetter();
             StringAssert.Contains("RHDSetup.log", steps.GetAttachName());
             StringAssert.Contains("asdksdfgjasdkk", steps.GetLetterText());
             steps.LogOut();
             steps.CleanCookie();
-            steps.LoginGmail("hleb.webdriver.3", "4815162342!");
-            steps.OpenLastUnreadLetter();
         }
 
         /*

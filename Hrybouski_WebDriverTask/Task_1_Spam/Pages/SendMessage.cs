@@ -91,7 +91,7 @@ namespace SpaghettiTests.Pages
         {
             buttonAttach.Click();
             SendKeys.SendWait(@pathToAttach);
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+            Thread.Sleep(TimeSpan.FromSeconds(1));
             SendKeys.SendWait(@"{Enter}");
             Utils.WaitingElement wl = new Utils.WaitingElement(driver);
             wl.WaitElement(fileAttached);
