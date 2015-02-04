@@ -16,7 +16,7 @@ namespace SpaghettiTests.Pages
         [FindsBy(How = How.Id, Using = "gb_71")]
         private IWebElement buttonLogOut;
 
-        [FindsBy(How = How.XPath, Using = "//tr[@class='zA zE']")]
+        [FindsBy(How = How.XPath, Using = "//div[@role='main']//tr[@class='zA zE']")]
         private IWebElement newLetter;
 
         [FindsBy(How = How.XPath, Using = "//img[@class='hA T-I-J3']")]

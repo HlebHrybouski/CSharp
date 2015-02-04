@@ -8,6 +8,7 @@ using OpenQA.Selenium.Firefox;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using SpaghettiTests.Steps;
+using System.Threading;
 
 namespace SpaghettiTests.Tests
 {
@@ -76,9 +77,11 @@ namespace SpaghettiTests.Tests
             steps.CleanCookie();
             steps.LoginGmail("hleb.webdriver.2", "4815162342!");
             steps.GoToImportant();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             steps.OpenLastUnreadLetter();
             StringAssert.Contains("asdkjgsdfgasdkk", steps.GetLetterText());
             steps.GoToTrash();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             steps.OpenLastUnreadLetter();
             StringAssert.Contains("RHDSetup.log", steps.GetAttachName());
             StringAssert.Contains("asdksdfgjasdkk", steps.GetLetterText());
@@ -92,11 +95,10 @@ namespace SpaghettiTests.Tests
         [Test]
         public void ATempTest()
         {
-            steps.LoginGmail("hleb.webdriver.3", "4815162342!");
-            steps.OpenLastUnreadLetter();
+            
              
         }
-         */
+        */
 
     }
 }

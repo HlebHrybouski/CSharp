@@ -25,7 +25,7 @@ namespace SpaghettiTests.Pages
         [FindsBy(How = How.XPath, Using = "//button[@class='gbqfb']/span")]
         private IWebElement searchButton;
 
-        [FindsBy(How = How.XPath, Using = "//tr[@class='zA zE']")]
+        [FindsBy(How = How.XPath, Using = "//div[@role='main']//tr[@class='zA zE']")]
         private IWebElement spamLetter;
 
         [FindsBy(How = How.XPath, Using = "//td[@class='anO anN']/span")]

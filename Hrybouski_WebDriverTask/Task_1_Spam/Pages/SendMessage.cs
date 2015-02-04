@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 //using Shell32;
 //using System.Runtime.InteropServices;
@@ -90,7 +91,7 @@ namespace SpaghettiTests.Pages
         {
             buttonAttach.Click();
             SendKeys.SendWait(@pathToAttach);
-            driver.Manage().Timeouts();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             SendKeys.SendWait(@"{Enter}");
             Utils.WaitingElement wl = new Utils.WaitingElement(driver);
             wl.WaitElement(fileAttached);
